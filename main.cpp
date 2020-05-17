@@ -20,69 +20,69 @@
 
 using namespace std;
 #define INF 0x7fffffff
-#define MAX_ID 300000000 //idãĞÖµ£¬ÔÚÓ³Éä¹ı³ÌÖĞĞ¡ÓÚ¸ÃãĞÖµµÄidÊ¹ÓÃÊı×éÓ³Éä£¬´óÓÚ¸ÃidµÄÊ¹ÓÃunorder_mapÓ³Éä
-#define MAX_G 201326592 //1.5G£¬ÓÃÒ»¸öÒ»Î¬Êı×éGÀ´´æ´¢ËùÓĞ½ÚµãµÄ×Ó½ÚµãĞÅÏ¢£¬Ô¤ÏÈ·ÖÅä1.5G¿Õ¼ä;ÓÃÒ»¸öÒ»Î¬Êı×éGRÀ´´æ´¢ËùÓĞ½ÚµãµÄ¸¸½ÚµãĞÅÏ¢£¬Ô¤ÏÈ·ÖÅä1.5G¿Õ¼ä
-#define MAX_EDGE 2000001 //ÉèÖÃ×î´ó±ßÊıÎª200w
-#define MAXN 2000001 //ÉèÖÃ×î´ó½ÚµãÊıÎª200w
+#define MAX_ID 300000000 //idé˜ˆå€¼ï¼Œåœ¨æ˜ å°„è¿‡ç¨‹ä¸­å°äºè¯¥é˜ˆå€¼çš„idä½¿ç”¨æ•°ç»„æ˜ å°„ï¼Œå¤§äºè¯¥idçš„ä½¿ç”¨unorder_mapæ˜ å°„
+#define MAX_G 201326592 //1.5Gï¼Œç”¨ä¸€ä¸ªä¸€ç»´æ•°ç»„Gæ¥å­˜å‚¨æ‰€æœ‰èŠ‚ç‚¹çš„å­èŠ‚ç‚¹ä¿¡æ¯ï¼Œé¢„å…ˆåˆ†é…1.5Gç©ºé—´;ç”¨ä¸€ä¸ªä¸€ç»´æ•°ç»„GRæ¥å­˜å‚¨æ‰€æœ‰èŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹ä¿¡æ¯ï¼Œé¢„å…ˆåˆ†é…1.5Gç©ºé—´
+#define MAX_EDGE 2000001 //è®¾ç½®æœ€å¤§è¾¹æ•°ä¸º200w
+#define MAXN 2000001 //è®¾ç½®æœ€å¤§èŠ‚ç‚¹æ•°ä¸º200w
 #define MAX_LEN 7
 #define MIN_LEN 3
 
-#define ansLen3 33*4000000 //level3,ÎªÃ¿¸öÏß³ÌÖĞ³¤¶ÈÎª3µÄ»·Ô¤ÏÈ·ÖÅäµÄ¿Õ¼ä£¬µ¥Î»Îª×Ö½Ú
-#define ansLen4 44*4000000 //level4£¬ÎªÃ¿¸öÏß³ÌÖĞ³¤¶ÈÎª4µÄ»·Ô¤ÏÈ·ÖÅäµÄ¿Õ¼ä£¬µ¥Î»Îª×Ö½Ú
-#define ansLen5 55*4000000 //level5£¬ÎªÃ¿¸öÏß³ÌÖĞ³¤¶ÈÎª5µÄ»·Ô¤ÏÈ·ÖÅäµÄ¿Õ¼ä£¬µ¥Î»Îª×Ö½Ú
-#define ansLen6 66*4000000 //level6£¬ÎªÃ¿¸öÏß³ÌÖĞ³¤¶ÈÎª6µÄ»·Ô¤ÏÈ·ÖÅäµÄ¿Õ¼ä£¬µ¥Î»Îª×Ö½Ú
-#define ansLen7 77*4000000 //level7£¬ÎªÃ¿¸öÏß³ÌÖĞ³¤¶ÈÎª7µÄ»·Ô¤ÏÈ·ÖÅäµÄ¿Õ¼ä£¬µ¥Î»Îª×Ö½Ú
+#define ansLen3 33*4000000 //level3,ä¸ºæ¯ä¸ªçº¿ç¨‹ä¸­é•¿åº¦ä¸º3çš„ç¯é¢„å…ˆåˆ†é…çš„ç©ºé—´ï¼Œå•ä½ä¸ºå­—èŠ‚
+#define ansLen4 44*4000000 //level4ï¼Œä¸ºæ¯ä¸ªçº¿ç¨‹ä¸­é•¿åº¦ä¸º4çš„ç¯é¢„å…ˆåˆ†é…çš„ç©ºé—´ï¼Œå•ä½ä¸ºå­—èŠ‚
+#define ansLen5 55*4000000 //level5ï¼Œä¸ºæ¯ä¸ªçº¿ç¨‹ä¸­é•¿åº¦ä¸º5çš„ç¯é¢„å…ˆåˆ†é…çš„ç©ºé—´ï¼Œå•ä½ä¸ºå­—èŠ‚
+#define ansLen6 66*4000000 //level6ï¼Œä¸ºæ¯ä¸ªçº¿ç¨‹ä¸­é•¿åº¦ä¸º6çš„ç¯é¢„å…ˆåˆ†é…çš„ç©ºé—´ï¼Œå•ä½ä¸ºå­—èŠ‚
+#define ansLen7 77*4000000 //level7ï¼Œä¸ºæ¯ä¸ªçº¿ç¨‹ä¸­é•¿åº¦ä¸º7çš„ç¯é¢„å…ˆåˆ†é…çš„ç©ºé—´ï¼Œå•ä½ä¸ºå­—èŠ‚
 
 #define likely(x) __builtin_expect(!!(x), 1) 
 #define unlikely(x) __builtin_expect(!!(x), 0)
 
-#define THREAD_NUM 6//Ïß³Ì³ØÏß³ÌÊı
-#define BLOCKS 100//Ïß³Ìµ¥´ÎÈÎÎñ¾ºÕùºÍ´¦ÀíµÄidÊıÄ¿
+#define THREAD_NUM 6//çº¿ç¨‹æ± çº¿ç¨‹æ•°
+#define BLOCKS 100//çº¿ç¨‹å•æ¬¡ä»»åŠ¡ç«äº‰å’Œå¤„ç†çš„idæ•°ç›®
 //#define PRINT
 
 
-pair<int,int> G[MAX_G]; //´æ´¢Ã¿¸ö½ÚµãµÄ³ö¶È×Ó½ÚµãºÍ×ªÕËÖµ
-pair<int,int> GR[MAX_G]; //´æ´¢Ã¿¸ö½ÚµãµÄÈë¶È¸¸½ÚµãºÍ×ªÕËÖµ
+pair<int,int> G[MAX_G]; //å­˜å‚¨æ¯ä¸ªèŠ‚ç‚¹çš„å‡ºåº¦å­èŠ‚ç‚¹å’Œè½¬è´¦å€¼
+pair<int,int> GR[MAX_G]; //å­˜å‚¨æ¯ä¸ªèŠ‚ç‚¹çš„å…¥åº¦çˆ¶èŠ‚ç‚¹å’Œè½¬è´¦å€¼
 
-char idComma[MAXN][15]; //´æ´¢½ÚµãidµÄ×Ö·û´®ĞÎÊ½£¬ºó¸ú¶ººÅ×Ö·û
-char idLF[MAXN][15]; //´æ´¢½ÚµãidµÄ×Ö·û´®ĞÎÊ½£¬ºó¸ú»»ĞĞ×Ö·û
-char idCharLen[MAXN]; //´æ´¢Ã¿¸ö½Úµã×ª»»Îª×Ö·û´®Ö®ºóµÄ×Ö·û´®³¤¶È
-char* addrOffset[MAX_LEN-MIN_LEN+1][MAXN]; //Ã¿¸ö½Úµã»·´æ´¢µÄÄÚ´æÆ«ÒÆµØÖ·£¬µÚÒ»Î¬±íÊ¾»·³¤¶È£¨³¤¶ÈÎª3µÄ»·¶ÔÓ¦Ë÷ÒıÎª0£©£¬µÚ¶şÎ¬±íÊ¾Ó³ÉäºóµÄ½Úµãid£¨Ó³ÉäºóµÄ½Úµãid´Ó1¿ªÊ¼£©
-char* addrStart[MAX_LEN-MIN_LEN+1][MAXN]; //Ã¿¸ö½Úµã»·´æ´¢µÄÄÚ´æÆğÊ¼µØÖ·£¬µÚÒ»Î¬±íÊ¾»·³¤¶È£¨³¤¶ÈÎª3µÄ»·¶ÔÓ¦Ë÷ÒıÎª0£©£¬µÚ¶şÎ¬±íÊ¾Ó³ÉäºóµÄ½Úµãid£¨Ó³ÉäºóµÄ½Úµãid´Ó1¿ªÊ¼£©
+char idComma[MAXN][15]; //å­˜å‚¨èŠ‚ç‚¹idçš„å­—ç¬¦ä¸²å½¢å¼ï¼Œåè·Ÿé€—å·å­—ç¬¦
+char idLF[MAXN][15]; //å­˜å‚¨èŠ‚ç‚¹idçš„å­—ç¬¦ä¸²å½¢å¼ï¼Œåè·Ÿæ¢è¡Œå­—ç¬¦
+char idCharLen[MAXN]; //å­˜å‚¨æ¯ä¸ªèŠ‚ç‚¹è½¬æ¢ä¸ºå­—ç¬¦ä¸²ä¹‹åçš„å­—ç¬¦ä¸²é•¿åº¦
+char* addrOffset[MAX_LEN-MIN_LEN+1][MAXN]; //æ¯ä¸ªèŠ‚ç‚¹ç¯å­˜å‚¨çš„å†…å­˜åç§»åœ°å€ï¼Œç¬¬ä¸€ç»´è¡¨ç¤ºç¯é•¿åº¦ï¼ˆé•¿åº¦ä¸º3çš„ç¯å¯¹åº”ç´¢å¼•ä¸º0ï¼‰ï¼Œç¬¬äºŒç»´è¡¨ç¤ºæ˜ å°„åçš„èŠ‚ç‚¹idï¼ˆæ˜ å°„åçš„èŠ‚ç‚¹idä»1å¼€å§‹ï¼‰
+char* addrStart[MAX_LEN-MIN_LEN+1][MAXN]; //æ¯ä¸ªèŠ‚ç‚¹ç¯å­˜å‚¨çš„å†…å­˜èµ·å§‹åœ°å€ï¼Œç¬¬ä¸€ç»´è¡¨ç¤ºç¯é•¿åº¦ï¼ˆé•¿åº¦ä¸º3çš„ç¯å¯¹åº”ç´¢å¼•ä¸º0ï¼‰ï¼Œç¬¬äºŒç»´è¡¨ç¤ºæ˜ å°„åçš„èŠ‚ç‚¹idï¼ˆæ˜ å°„åçš„èŠ‚ç‚¹idä»1å¼€å§‹ï¼‰
 
-int GInd[MAXN][2];  //Ã¿¸ö½ÚµãÔÚpair<int,int> G[MAX_G]´æ´¢µÄ³ö¶È×Ó½ÚµãµÄÕ¼ÓÃµÄ¿Õ¼äµÄµØÖ·£¬[0]±íÊ¾Õ¼ÓÃ¿Õ¼äµÄÊ×µØÖ·£¬[1]±íÊ¾Õ¼ÓÃ¿Õ¼äµÄÎ²µØÖ·
-int GRInd[MAXN][2];  //Ã¿¸ö½ÚµãÔÚpair<int,int> GR[MAX_G]´æ´¢µÄÈë¶È¸¸½ÚµãµÄÕ¼ÓÃµÄ¿Õ¼äµÄµØÖ·£¬[0]±íÊ¾Õ¼ÓÃ¿Õ¼äµÄÊ×µØÖ·£¬[1]±íÊ¾Õ¼ÓÃ¿Õ¼äµÄÎ²µØÖ·
-int idInDeg[MAXN];//Ã¿¸ö½ÚµãµÄÈë¶ÈÊı
-int idOutDeg[MAXN];//Ã¿¸ö½ÚµãµÄ³ö¶ÈÊı
-int nodePairs[MAX_EDGE*3];  //´æ´¢µÄÊÇÎ´Ó³ÉäµÄidĞÅÏ¢ºÍ×ªÕËĞÅÏ¢£¬¼´´Ótest_data.txt¶ÁÈ¡µÄÃ¿Ò»ĞĞµÄĞÅÏ¢
-int temp[MAX_EDGE*2]; //ÓÃÓÚ´æ´¢nodePairsµÄidĞÅÏ¢
-bool idUnique[MAX_ID]; //±êÖ¾Î»£¬±êÖ¾Ä³idÖ®Ç°ÊÇ·ñ±»·ÃÎÊ¹ı
-int idMapArr[MAX_ID]; //hashÊı×é£¬ÓÃ¸ÃÊı×éÀ´¶ÔĞ¡ÓÚMAX_IDµÄid½øĞĞidÓ³Éä£¬´óÓÚMAX_IDµÄÊ¹ÓÃunordered_map½øĞĞÓ³Éä
+int GInd[MAXN][2];  //æ¯ä¸ªèŠ‚ç‚¹åœ¨pair<int,int> G[MAX_G]å­˜å‚¨çš„å‡ºåº¦å­èŠ‚ç‚¹çš„å ç”¨çš„ç©ºé—´çš„åœ°å€ï¼Œ[0]è¡¨ç¤ºå ç”¨ç©ºé—´çš„é¦–åœ°å€ï¼Œ[1]è¡¨ç¤ºå ç”¨ç©ºé—´çš„å°¾åœ°å€
+int GRInd[MAXN][2];  //æ¯ä¸ªèŠ‚ç‚¹åœ¨pair<int,int> GR[MAX_G]å­˜å‚¨çš„å…¥åº¦çˆ¶èŠ‚ç‚¹çš„å ç”¨çš„ç©ºé—´çš„åœ°å€ï¼Œ[0]è¡¨ç¤ºå ç”¨ç©ºé—´çš„é¦–åœ°å€ï¼Œ[1]è¡¨ç¤ºå ç”¨ç©ºé—´çš„å°¾åœ°å€
+int idInDeg[MAXN];//æ¯ä¸ªèŠ‚ç‚¹çš„å…¥åº¦æ•°
+int idOutDeg[MAXN];//æ¯ä¸ªèŠ‚ç‚¹çš„å‡ºåº¦æ•°
+int nodePairs[MAX_EDGE*3];  //å­˜å‚¨çš„æ˜¯æœªæ˜ å°„çš„idä¿¡æ¯å’Œè½¬è´¦ä¿¡æ¯ï¼Œå³ä»test_data.txtè¯»å–çš„æ¯ä¸€è¡Œçš„ä¿¡æ¯
+int temp[MAX_EDGE*2]; //ç”¨äºå­˜å‚¨nodePairsçš„idä¿¡æ¯
+bool idUnique[MAX_ID]; //æ ‡å¿—ä½ï¼Œæ ‡å¿—æŸidä¹‹å‰æ˜¯å¦è¢«è®¿é—®è¿‡
+int idMapArr[MAX_ID]; //hashæ•°ç»„ï¼Œç”¨è¯¥æ•°ç»„æ¥å¯¹å°äºMAX_IDçš„idè¿›è¡Œidæ˜ å°„ï¼Œå¤§äºMAX_IDçš„ä½¿ç”¨unordered_mapè¿›è¡Œæ˜ å°„
 
 int minMoney=1000;
-int blockSize; //ËùÓĞ½Úµã»®·ÖºóµÄÈÎÎñ¿éÊı
-int edgeNum; //±ßÊı
-int nodeNum; //½ÚµãÊı
-int idFreeStart=1;//µ±Ç°Î´·ÖÅäµ½Ïß³Ì´¦ÀíµÄidµÄ×îĞ¡½Úµã
+int blockSize; //æ‰€æœ‰èŠ‚ç‚¹åˆ’åˆ†åçš„ä»»åŠ¡å—æ•°
+int edgeNum; //è¾¹æ•°
+int nodeNum; //èŠ‚ç‚¹æ•°
+int idFreeStart=1;//å½“å‰æœªåˆ†é…åˆ°çº¿ç¨‹å¤„ç†çš„idçš„æœ€å°èŠ‚ç‚¹
 
-std::atomic_flag flag(ATOMIC_FLAG_INIT);//Ô­×Ó±äÁ¿³õÊ¼»¯£¬ÀûÓÃ¸Ã±äÁ¿µÄÔ­×ÓĞÔÀ´ÖÆÔì×ÔĞıËø
+std::atomic_flag flag(ATOMIC_FLAG_INIT);//åŸå­å˜é‡åˆå§‹åŒ–ï¼Œåˆ©ç”¨è¯¥å˜é‡çš„åŸå­æ€§æ¥åˆ¶é€ è‡ªæ—‹é”
 
 struct timeval startTime;
 struct timeval endTime;
 
 
 struct P3
-{   //P3½á¹¹Ìå
-    int id[2]; //idĞÅÏ¢
-    int cc[2]; //×ªÕËĞÅÏ¢
+{   //P3ç»“æ„ä½“
+    int id[2]; //idä¿¡æ¯
+    int cc[2]; //è½¬è´¦ä¿¡æ¯
 };
 
-//Ïß³Ì³õÊ¼»¯
+//çº¿ç¨‹åˆå§‹åŒ–
 struct Thread
 {
     pthread_t tid;
 
-	//´æ´¢¶ÔÓ¦³¤¶ÈµÄ»·
+	//å­˜å‚¨å¯¹åº”é•¿åº¦çš„ç¯
     char ans3[ansLen3];
     char ans4[ansLen4];
     char ans5[ansLen5];
@@ -92,10 +92,10 @@ struct Thread
     int8_t nodeLen[MAXN];
 
     int pMapLen[MAXN];//P1
-    int pMapMoney[MAXN];//´æÂ·¾¶µÄµÚÒ»¸ömoney
+    int pMapMoney[MAXN];//å­˜è·¯å¾„çš„ç¬¬ä¸€ä¸ªmoney
 
     P3 pMap3[15000][200];
-    int pMap3Len[MAXN][3];//pMap3Len[i][0]´æiµÄ¶ÔÓ¦Æğµã£¬pMap3Len[i][1]´ækµÄ¸öÊı,pMap3Len[i][2]´æiÔÚpMapµÄÎ»ÖÃ
+    int pMap3Len[MAXN][3];//pMap3Len[i][0]å­˜içš„å¯¹åº”èµ·ç‚¹ï¼ŒpMap3Len[i][1]å­˜kçš„ä¸ªæ•°,pMap3Len[i][2]å­˜iåœ¨pMapçš„ä½ç½®
     int iP3[MAXN];
     int resCnt;
 
@@ -111,7 +111,7 @@ int getTime() {
     return int(1000 * (endTime.tv_sec - startTime.tv_sec) + (endTime.tv_usec - startTime.tv_usec) / 1000);
 }
 
-//¶ÁÈ¡test_data.txtµÄÃ¿Ò»ĞĞĞÅÏ¢²¢´æ´¢µ½nodePairsÖĞ
+//è¯»å–test_data.txtçš„æ¯ä¸€è¡Œä¿¡æ¯å¹¶å­˜å‚¨åˆ°nodePairsä¸­
 void readTxtMmap(string& inputFile){
     int fd = open(inputFile.c_str(), O_RDONLY);
     struct stat sb;
@@ -160,7 +160,7 @@ void buildGraph(string &inputFile){
     threadPool=new Thread[THREAD_NUM];
 
     int sumID=0;
-	//ÕâÒ»²½²Ù×÷ÊÇÎªÁË¼õÉÙtempÖĞµÄÖØ¸´idÊı£¬´Ó¶ø¼õÉÙsortÅÅĞòµÄÊ±¼ä
+	//è¿™ä¸€æ­¥æ“ä½œæ˜¯ä¸ºäº†å‡å°‘tempä¸­çš„é‡å¤idæ•°ï¼Œä»è€Œå‡å°‘sortæ’åºçš„æ—¶é—´
     for(int i=0,j=0;i<edgeNum;i+=3)
     {
         if(nodePairs[i]<MAX_ID){ 
@@ -176,7 +176,7 @@ void buildGraph(string &inputFile){
             ++sumID;
         }
 
-        if(nodePairs[i+1]<MAX_ID){ //Èç¹ûid´óÓÚMAX_ID£¬ÔòÊ¹ÓÃÊı×éÓ³Éä
+        if(nodePairs[i+1]<MAX_ID){ //å¦‚æœidå¤§äºMAX_IDï¼Œåˆ™ä½¿ç”¨æ•°ç»„æ˜ å°„
             if(idUnique[nodePairs[i+1]]==false){
                 temp[j]=nodePairs[i+1];
                 ++j;
@@ -192,7 +192,7 @@ void buildGraph(string &inputFile){
     sort(temp,temp+sumID);
 
 
-    //»ñÈ¡·ÇÖØ¸´id½Úµã
+    //è·å–éé‡å¤idèŠ‚ç‚¹
     for(int i=0;i<sumID;++i)
     {
         if(temp[i]!=temp[nodeNum]){
@@ -207,7 +207,7 @@ void buildGraph(string &inputFile){
     unordered_map<int,int> idMap;
     char str[]="0123456789";
     int num,k;
-	//½øĞĞidÓ³Éä²¢°Ñid×ª»»Îª×Ö·û´®ĞÎÊ½£¬·½±ãºóÃæ»·µÄ´æ´¢
+	//è¿›è¡Œidæ˜ å°„å¹¶æŠŠidè½¬æ¢ä¸ºå­—ç¬¦ä¸²å½¢å¼ï¼Œæ–¹ä¾¿åé¢ç¯çš„å­˜å‚¨
     for(int i=0;i<nodeNum;i++)
     {
         if(temp[i]<MAX_ID){
@@ -241,7 +241,7 @@ void buildGraph(string &inputFile){
         idLF[i][idCharLen[i]-1]='\n';
     }
 
-	//nodePairs´æ´¢Ó³ÉäºóµÄ½ÚµãidĞÅÏ¢
+	//nodePairså­˜å‚¨æ˜ å°„åçš„èŠ‚ç‚¹idä¿¡æ¯
     for(int i=0;i<edgeNum;i+=3)
     {
         nodePairs[i]=nodePairs[i]<MAX_ID?idMapArr[nodePairs[i]]:idMap[nodePairs[i]];
@@ -249,7 +249,7 @@ void buildGraph(string &inputFile){
     }
 
     int u,v,c;
-	//Í³¼ÆÈë¶ÈºÍ³ö¶ÈĞÅÏ¢
+	//ç»Ÿè®¡å…¥åº¦å’Œå‡ºåº¦ä¿¡æ¯
     for(int i=0;i<edgeNum;i+=3)
     {
         u=nodePairs[i];
@@ -257,7 +257,7 @@ void buildGraph(string &inputFile){
         ++GRInd[v][1];
         ++GInd[u][1];
     }
-	//¼ÇÂ¼Ã¿¸ö½ÚµãµÄ¸¸½ÚµãºÍ×Ó½ÚµãÔÚGRºÍGÖĞ¶ÔÓ¦µÄÎ»ÖÃĞÅÏ¢
+	//è®°å½•æ¯ä¸ªèŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹å’Œå­èŠ‚ç‚¹åœ¨GRå’ŒGä¸­å¯¹åº”çš„ä½ç½®ä¿¡æ¯
     for(int i=2;i<=nodeNum;++i)
     {
         GRInd[i][0]=GRInd[i-1][1];
@@ -268,7 +268,7 @@ void buildGraph(string &inputFile){
     }
 
     pair<int,int> tmpPair;
-	//ÔÚGÖĞ´æ´¢Ã¿¸ö½ÚµãµÄ×Ó½ÚµãĞÅÏ¢
+	//åœ¨Gä¸­å­˜å‚¨æ¯ä¸ªèŠ‚ç‚¹çš„å­èŠ‚ç‚¹ä¿¡æ¯
     for(int i=0;i<edgeNum;i+=3)
     {
         u=nodePairs[i];
@@ -276,7 +276,7 @@ void buildGraph(string &inputFile){
         c=nodePairs[i+2];
         tmpPair=make_pair(v,c);
         memcpy(G+GInd[u][0]+idOutDeg[u],&tmpPair,8);
-        ++idOutDeg[u];  //±£´æ½ÚµãµÄ³ö¶ÈÊı
+        ++idOutDeg[u];  //ä¿å­˜èŠ‚ç‚¹çš„å‡ºåº¦æ•°
     }
 
 #ifdef PRINT
@@ -291,7 +291,7 @@ void buildGraph(string &inputFile){
 
 void rmNode(){
     setTime();
-	//¶ÔÃ¿¸ö½ÚµãµÄ×Ó½Úµã¸ù¾İid´óĞ¡½øĞĞÅÅĞò
+	//å¯¹æ¯ä¸ªèŠ‚ç‚¹çš„å­èŠ‚ç‚¹æ ¹æ®idå¤§å°è¿›è¡Œæ’åº
     for(int i=1;i<=nodeNum;++i){
         if(idOutDeg[i]>1){
             sort(G+GInd[i][0],G+GInd[i][1]);
@@ -299,7 +299,7 @@ void rmNode(){
     }
 
     int u,v,c;
-	//ÔÚGRÖĞ´æ´¢Ã¿¸ö½ÚµãµÄ¸¸½ÚµãĞÅÏ¢
+	//åœ¨GRä¸­å­˜å‚¨æ¯ä¸ªèŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹ä¿¡æ¯
     for(int i=1;i<=nodeNum;++i){
         for(int j=GInd[i][0];j<GInd[i][1];++j){
             u=i;
@@ -317,7 +317,7 @@ void rmNode(){
 
 
 static bool cmp(P3 a,P3 b);
-//ÕÒ»·²¢´æ»·
+//æ‰¾ç¯å¹¶å­˜ç¯
 void doDFS(int index)
 {
     setTime();
@@ -330,7 +330,7 @@ void doDFS(int index)
     int pAddr;
     int pInd,pInd2;
     int path0,path1,path2,path3,path4,path5,path6;
-    bool vis[MAXN];  //½ÚµãÊÇ·ñ±»·ÃÎÊ
+    bool vis[MAXN];  //èŠ‚ç‚¹æ˜¯å¦è¢«è®¿é—®
 
     int localResCnt=0,iP3Len=0;
     int idStart,idEnd;
@@ -346,14 +346,14 @@ void doDFS(int index)
         blockSize=BLOCKS;
     }
 
-	//Ïß³Ì¿ªÊ¼ÈÎÎñ¾ºÕù£¬»ñÈ¡±¾´ÎÈÎÎñ´¦ÀíµÄid
-    while(flag.test_and_set());//ÔÚÕâÀï¼ÓËø
+	//çº¿ç¨‹å¼€å§‹ä»»åŠ¡ç«äº‰ï¼Œè·å–æœ¬æ¬¡ä»»åŠ¡å¤„ç†çš„id
+    while(flag.test_and_set());//åœ¨è¿™é‡ŒåŠ é”
     idStart=idFreeStart;
-    idFreeStart+=blockSize;//idFreeStartÖ»ÄÜÔÚ¼ÓËøºó·ÃÎÊ
+    idFreeStart+=blockSize;//idFreeStartåªèƒ½åœ¨åŠ é”åè®¿é—®
     idEnd=idFreeStart;
-    flag.clear();//½âËø
+    flag.clear();//è§£é”
 
-	//³õÊ¼»¯¸÷ÖÖ³¤¶È»·µÄ´æ´¢µØÖ·
+	//åˆå§‹åŒ–å„ç§é•¿åº¦ç¯çš„å­˜å‚¨åœ°å€
     addrBlock0=addrOffset0;
     addrBlock1=addrOffset1;
     addrBlock2=addrOffset2;
@@ -362,21 +362,21 @@ void doDFS(int index)
 
     for(int mm=0;mm<nodeNum;++mm)
     {
-		//Èç¹ûµ±Ç°ÈÎÎñ¿éµÄid¾ù´¦ÀíÍê±Ï
+		//å¦‚æœå½“å‰ä»»åŠ¡å—çš„idå‡å¤„ç†å®Œæ¯•
         if(idStart==idEnd){
-            //¼ÇÂ¼Ã¿¿éµÄÆğµãµØÖ·
+            //è®°å½•æ¯å—çš„èµ·ç‚¹åœ°å€
             addrBlock0=addrOffset0;
             addrBlock1=addrOffset1;
             addrBlock2=addrOffset2;
             addrBlock3=addrOffset3;
             addrBlock4=addrOffset4;
 
-			//¿ªÊ¼ĞÂÒ»ÂÖÈÎÎñ¾ºÕù
-            while(flag.test_and_set());//ÔÚÕâÀï¼ÓËø
+			//å¼€å§‹æ–°ä¸€è½®ä»»åŠ¡ç«äº‰
+            while(flag.test_and_set());//åœ¨è¿™é‡ŒåŠ é”
             idStart=idFreeStart;
-            idFreeStart+=blockSize;//idFreeStartÖ»ÄÜÔÚ¼ÓËøºó·ÃÎÊ
+            idFreeStart+=blockSize;//idFreeStartåªèƒ½åœ¨åŠ é”åè®¿é—®
             idEnd=idFreeStart;
-            flag.clear();//½âËø
+            flag.clear();//è§£é”
         }
 
         i=idStart;
@@ -389,19 +389,19 @@ void doDFS(int index)
 
             for(int i_it=0;i_it<iP3Len;++i_it)
             {
-                target.nodeLen[target.iP3[i_it]]=0;//ÖØÖÃ³¤¶ÈÎª4
+                target.nodeLen[target.iP3[i_it]]=0;//é‡ç½®é•¿åº¦ä¸º4
             }
 
             iP3Len=0;
             idInDeghead=GRInd[head][1];
-            for(k3=GRInd[head][0];k3<idInDeghead;++k3) //¹¹½¨P2
+            for(k3=GRInd[head][0];k3<idInDeghead;++k3) //æ„å»ºP2
             {
                 kk3=GR[k3].first;
                 cc3=GR[k3].second;
                 if(kk3<=head)  // || cc3>left*maxccj || right*cc3<minccj
                     continue;
 
-                target.pMapLen[kk3]=head;//´ËĞĞ¹¹½¨P1
+                target.pMapLen[kk3]=head;//æ­¤è¡Œæ„å»ºP1
                 target.pMapMoney[kk3]=cc3;
 
                 idInDegkk3=GRInd[kk3][1];
@@ -424,7 +424,7 @@ void doDFS(int index)
                             target.pMap3Len[kk1][0]=head;
                             target.pMap3Len[kk1][1]=0;
                             target.pMap3Len[kk1][2]=iP3Len;
-                            target.iP3[iP3Len]=kk1;//´ækk2,Í¬ÊÂ±ÜÃâÖØ¸´
+                            target.iP3[iP3Len]=kk1;//å­˜kk2,åŒäº‹é¿å…é‡å¤
                             target.nodeLen[kk1]=3;
                             ++iP3Len;
 
@@ -444,12 +444,12 @@ void doDFS(int index)
             {
                 pAddr=target.pMap3Len[target.iP3[pi]][1];
                 if(pAddr>1){
-                    sort(target.pMap3[pi],target.pMap3[pi]+pAddr,cmp);//½öP3ÅÅĞò
+                    sort(target.pMap3[pi],target.pMap3[pi]+pAddr,cmp);//ä»…P3æ’åº
                 }
             }
 
 
-            //¿ªÊ¼Ñ°»·
+            //å¼€å§‹å¯»ç¯
             vis[i]=true;
             path0=i;
             idOutDegi=GInd[i][1];
@@ -674,45 +674,7 @@ void doDFS(int index)
 #endif
 }
 
-
-/*
-void saveTxtMmap(string &outputFile){
-    auto t=clock();
-    char temp[100];
-
-    resCnt=0;
-    for(int x=0;x<5;++x){
-        resCnt += ansCntAll[x];
-    }
-
-    int idx=sprintf(temp,"%d\n",resCnt);
-    temp[idx]='\0';
-    int totalSize=0;    //¼ÇÂ¼Â·¾¶µÄ´óĞ¡
-    for(int i=MIN_LEN;i<=MAX_LEN;++i) {
-        totalSize += (addrOffset[i-MIN_LEN]-addrStart[i-MIN_LEN]);
-    }
-    totalSize+=idx;
-    int fd = open(outputFile.c_str(),O_CREAT|O_RDWR|O_TRUNC,S_IRUSR|S_IWUSR);//±ØĞëÉèÖÃ¶ÁĞ´È¨ÏŞ,ÈôÖ»ÓĞĞ´È¨ÏŞ,»á²úÉúSIGSEGVĞÅºÅ
-                                                            //mmap½øĞĞÎÄ¼şÓ³ÉäÊ±±ØĞëÏÈ¶ÁÈ¡ÎÄ¼ş`
-    int len=lseek(fd,totalSize-1,SEEK_CUR);  //´Óµ±Ç°Î»ÖÃ¿ªÊ¼Æ«ÒÆ totalSize-1¸ö×Ö·û
-    int n=write(fd,"",1);
-    char *addr = (char *)mmap(NULL, totalSize, PROT_WRITE,MAP_SHARED,fd,0);
-    int ansOffset=0;
-    memcpy(addr,temp,idx);
-    ansOffset+=idx;
-    for(int i=MIN_LEN;i<=MAX_LEN;++i) {
-        memcpy(addr+ansOffset,ans[i-MIN_LEN],addrOffset[i-MIN_LEN]-addrStart[i-MIN_LEN]);
-        ansOffset+=(addrOffset[i-MIN_LEN]-addrStart[i-MIN_LEN]);
-    }
-    close(fd);
-    munmap((void *)addr, totalSize);
-#ifdef PRINT
-    printf("Total Loops: %d\n",resCnt);
-    cout<<"Mmap save time: "<<clock()-t<<endl;
-#endif
-}*/
-
-//Ğ´result.txt
+//å†™result.txt
 void saveTxt(const string &outputFile){
     setTime();
     FILE *fp = fopen(outputFile.c_str(), "wb");
@@ -744,14 +706,14 @@ void saveTxt(const string &outputFile){
 
 static void* work(void* arg);
 
-//¿ªÊ¼´´½¨×ÓÏß³Ì
+//å¼€å§‹åˆ›å»ºå­çº¿ç¨‹
 void createThreadPool()
 {
 
     for(int i=0;i<THREAD_NUM;i++)
     {
-        int* index=new int(i);//Ïß³ÌÔÚÏß³Ì³ØÖĞµÄĞòºÅ
-        if(pthread_create(&threadPool[i].tid,NULL,work,index)!=0)//Èç¹ûÏß³Ì´´½¨Ê§°Ü
+        int* index=new int(i);//çº¿ç¨‹åœ¨çº¿ç¨‹æ± ä¸­çš„åºå·
+        if(pthread_create(&threadPool[i].tid,NULL,work,index)!=0)//å¦‚æœçº¿ç¨‹åˆ›å»ºå¤±è´¥
         {
             printf("create thread failed\n");
             exit(0);
@@ -764,22 +726,22 @@ void createThreadPool()
         }
     }
 
-    for(int i=THREAD_NUM-1;i>=0;i--)//µÈ´ıËùÓĞ×ÓÏß³ÌÖÕÖ¹²¢»ØÊÕÏß³Ì×ÊÔ´
+    for(int i=THREAD_NUM-1;i>=0;i--)//ç­‰å¾…æ‰€æœ‰å­çº¿ç¨‹ç»ˆæ­¢å¹¶å›æ”¶çº¿ç¨‹èµ„æº
     {
         pthread_join(threadPool[i].tid,NULL);
     }
 }
 
 
-//×ÓÏß³ÌµÄ¹¤×÷º¯Êı
+//å­çº¿ç¨‹çš„å·¥ä½œå‡½æ•°
 void* work(void* arg)
 {
     int* p=(int*)arg;
-    int index=*p;//indexÊÇ×ÓÏß³ÌÔÚÏß³Ì³ØÖĞµÄĞòºÅ
+    int index=*p;//indexæ˜¯å­çº¿ç¨‹åœ¨çº¿ç¨‹æ± ä¸­çš„åºå·
     doDFS(index);
     return NULL;
 }
-//P3µÄsortÅÅĞò¹æÔòº¯Êı
+//P3çš„sortæ’åºè§„åˆ™å‡½æ•°
 bool cmp(P3 a,P3 b)
 {
     return (a.id[0]!=b.id[0])?(a.id[0]<b.id[0]):(a.id[1]<b.id[1]);
