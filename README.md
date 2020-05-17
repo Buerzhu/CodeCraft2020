@@ -41,4 +41,4 @@ if(target.nodeLen[m]!=3 || G[l_it].first <= head || ccm*left<ccL || ccm>right*cc
 （6）写入使用fwrite;  
 （7）在if判断中注意判断条件的顺序；  
 （8）将dfs递归改为迭代，减少函数调用的开销；  
-（9）用查表方式来代替部分判断；
+（9）用查表方式来代替部分判断
