@@ -2,8 +2,8 @@
 + **团队名**：景  
 + **成绩**：粤港澳复赛A榜第2，全国第12  
 + **分工**:  
-（1）[KITE-HZ](https://github.com/KITE-HZ "黄老哥")承担了大部分的编程工作和优化工作，也是我们的队长；  
-（2）[Buerzhu](https://github.com/Buerzhu/ "Buerzhu")承担了多线程的优化工作和部分算法优化工作;  
+（1）[KITE-HZ](https://github.com/KITE-HZ "黄老哥")作为队长承担了大部分的编程工作和优化工作；  
+（2）[Buerzhu](https://github.com/Buerzhu/ "Buerzhu")承担了多线程的优化工作以及部分编程和算法的优化工作;  
 （3）[cxyanhk](https://github.com/cxyanhk "严老哥")承担了部分IO优化工作和部分算法优化工作；
 
   
